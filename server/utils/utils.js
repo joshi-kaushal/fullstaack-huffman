@@ -1,4 +1,4 @@
 const { fetchWithEncode } = require("./fetchWithEncode");
-const { fetchWithoutEncode } = require("./fetchWithoutEncode");
+const { fetchWithoutEncode } = require("./fetchWithoutEncode.mjs");
 
 module.exports = { fetchWithEncode, fetchWithoutEncode };

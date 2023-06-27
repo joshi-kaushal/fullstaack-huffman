@@ -16,18 +16,19 @@ function App() {
       const data = await fetch(`http://localhost:5000/fetch?type=${type}`).then(
         (response) => response.json()
       );
+
       if (type === "withEncode") {
+        // Decoding encoded data with huffman tree root
         const decodedStr = decodeHuffmanCode(
           data.data.encodedData,
           data.data.huffmanTreeRoot
         );
-        // console.log(JSON.parse(decodedStr));
         setComments(JSON.parse(decodedStr));
         // setHuffmanTreeRoot(data.data.huffmanTreeRoot);
+
         setIsFetched(true);
       } else {
-        // ! With out encode to be implemented
-        setComments(data.data.comments);
+        setComments(data.data);
         setIsFetched(true);
       }
     } catch (err) {
@@ -37,6 +38,7 @@ function App() {
     }
   };
 
+  if (isLoading) return <h5>Loading...</h5>;
   return (
     <>
       <h1>Huffman Implementation</h1>

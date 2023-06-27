@@ -16,10 +16,20 @@ app.get("/fetch", async (req, res) => {
   const type = req.query.type;
   if (type === "withoutEncode") {
     const data = fetchWithoutEncode();
-    res.status(200).json({ data: data });
+    data.then((comments) => {
+      res.status(200).json({ data: comments });
+    });
+
+    // console.log(data);
+    // res.status(200).json({ data: data });
+    // data.then((comments) => {
+    //   res.status(200).json({ data: comments.data });
+    // });
   } else {
     const data = fetchWithEncode();
-    res.status(200).json({ data });
+    data.then((comments) => {
+      res.status(200).json({ data: comments });
+    });
   }
 });
 
