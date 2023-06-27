@@ -5,7 +5,6 @@ const { fetchWithEncode, fetchWithoutEncode } = require("./utils/utils");
 
 const app = express();
 app.use(cors());
-// app.use(fetchWithoutEncode());
 
 const PORT = 5000;
 
@@ -17,7 +16,7 @@ app.get("/fetch", async (req, res) => {
   const type = req.query.type;
   if (type === "withoutEncode") {
     const data = fetchWithoutEncode();
-    res.status(200).json({ message: "Status ok", data: data });
+    res.status(200).json({ data: data });
   } else {
     const data = fetchWithEncode();
     res.status(200).json({ data });
