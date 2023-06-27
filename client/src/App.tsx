@@ -1,9 +1,18 @@
+import { useState } from "react";
 import "./App.css";
 import decodeHuffmanCode from "./utils/decodeHuffmanCode";
+import Comments from "./Comments";
 
 function App() {
+  const [comments, setComments] = useState([] as any);
+  // const [huffmanTreeRoot, setHuffmanTreeRoot] = useState({} as any);
+  const [isFetched, setIsFetched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchData = async (type: string) => {
     try {
+      setIsLoading(true);
+
       const data = await fetch(`http://localhost:5000/fetch?type=${type}`).then(
         (response) => response.json()
       );
@@ -12,12 +21,19 @@ function App() {
           data.data.encodedData,
           data.data.huffmanTreeRoot
         );
-        console.log(JSON.parse(decodedStr));
+        // console.log(JSON.parse(decodedStr));
+        setComments(JSON.parse(decodedStr));
+        // setHuffmanTreeRoot(data.data.huffmanTreeRoot);
+        setIsFetched(true);
       } else {
-        console.log(data);
+        // ! With out encode to be implemented
+        setComments(data.data.comments);
+        setIsFetched(true);
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -33,6 +49,10 @@ function App() {
           Fetch without encode
         </button>
       </div>
+
+      {isFetched && !isLoading && comments.length >= 1 && (
+        <Comments comments={comments} />
+      )}
     </>
   );
 }
