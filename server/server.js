@@ -20,16 +20,16 @@ app.get("/fetch", async (req, res) => {
       res.status(200).json({ data: comments });
     });
 
-    // console.log(data);
+    // Line 24: hardcoded data
     // res.status(200).json({ data: data });
-    // data.then((comments) => {
-    //   res.status(200).json({ data: comments.data });
-    // });
   } else {
     const data = fetchWithEncode();
     data.then((comments) => {
       res.status(200).json({ data: comments });
     });
+
+    // Line 24: hardcoded data
+    // res.status(200).json({ data: data });
   }
 });
 
